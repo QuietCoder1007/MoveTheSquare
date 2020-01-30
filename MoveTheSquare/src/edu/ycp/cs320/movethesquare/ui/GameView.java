@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import edu.ycp.cs320.movethesquare.controllers.GameController;
+import edu.ycp.cs320.movethesquare.model.Circle;
 import edu.ycp.cs320.movethesquare.model.Game;
 import edu.ycp.cs320.movethesquare.model.Square;
 
@@ -51,12 +52,12 @@ public class GameView extends JPanel {
 		if (controller == null) {
 			return;
 		}
-		Square square = model.getSquare();
+		Circle circle = model.getCircle();
 		Point mouseLoc = getMousePosition();
 		if (mouseLoc != null) {
-			controller.computeSquareMoveDirection(model, square, mouseLoc.getX(), mouseLoc.getY());
+			controller.computeSquareMoveDirection(model, circle, mouseLoc.getX(), mouseLoc.getY());
 		}
-		controller.moveSquare(model, square);
+		controller.moveSquare(model, circle);
 		repaint();
 	}
 	
@@ -66,11 +67,11 @@ public class GameView extends JPanel {
 		
 		// djh2-KEC110-21: changed from GREEN to RED
 		// djh2-YCPlaptop: change from RED to YELLOW
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.BLUE);
 
-		Square square = model.getSquare();
+		Circle circle = model.getCircle();
 		
-		g.fillRect((int) square.getX(), (int) square.getY(), (int) square.getWidth(), (int) square.getHeight());
+		g.fillRect((int) circle.getX(), (int) circle.getY(), (int) circle.getRadius(), (int) circle.getRadius());
 	}
 	
 	public static void main(String[] args) {
@@ -81,12 +82,11 @@ public class GameView extends JPanel {
 				model.setWidth(640.0);
 				model.setHeight(480.0);
 				
-				Square square = new Square();
-				square.setX(300.0);
-				square.setY(220.0);
-				square.setWidth(40.0);
-				square.setHeight(40.0);
-				model.setSquare(square);
+				Circle circle = new Circle();
+				circle.setX(300.0);
+				circle.setY(220.0);
+				circle.setRadius(40.0);
+				model.setCircle(circle);
 				
 				GameController controller = new GameController();
 				
